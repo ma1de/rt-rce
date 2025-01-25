@@ -1,6 +1,6 @@
 [Русский Язык](https://github.com/ma1de/rt-rce/blob/main/README_RU.md)
 
-[rt_logo](https://github.com/ma1de/rt-rce/blob/main/static/rt_logo.png)
+![rt_logo](static/rt_logo.png)
 
 # RT RCE
 Rostelecom Remote Code Execution bug found in the Web Panel
