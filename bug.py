@@ -21,13 +21,13 @@ def start():
 
     supplied_token = input("Please supply the sessionid for the web panel: ")
 
-    supplied_command = input("Supply commands to execute, when done type fi: ")
+    supplied_command = input("Supply commands to execute, when done type rce#fi: ")
 
     supplied_commands = []
 
-    while supplied_command != 'fi':
+    while supplied_command != 'rce#fi':
         supplied_commands.append(supplied_command)
-        supplied_command = input("Supply commands to execute, when done type fi: ")
+        supplied_command = input("Supply commands to execute, when done type rce#fi: ")
 
     thread = threading.Thread(target=execute_command, args=(supplied_address, supplied_token, supplied_commands))
     thread.start()

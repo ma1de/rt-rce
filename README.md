@@ -22,7 +22,7 @@ For example:
 ip -6 :: | echo "Hello, world!"
 ```
 So much for [allocating 60 bilion rubles to block websites](https://www.svoboda.org/a/roskomnadzor-potratit-pochti-60-mlrd-rubley-na-sistemy-po-blokirovke/33114493.html), huh? <br>
-Anyway, before that you should log into the web panel and grab the sessionid, otherwise this isn't going to work.
+Anyway, before that you should log into the web panel and grab the sessionid, otherwise this isn't going to work. <br>
 
 # License
 You can find a copy of the MIT license in this GitHub repository
