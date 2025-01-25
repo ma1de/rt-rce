@@ -12,11 +12,10 @@ P.S.S: if someone else have already found this bug, then please notify me with a
 
 # How this works
 In the web panel you can find some diagnostic tools like ping and traceroute. <br>
-In the Ping6 section the panel takes your input and executes it like this with root permissions:
+In the Ping6 section the panel takes your input and executes this command with root permissions:
 ```
 ip -6 <input>
 ```
-
 Because of this major oversight we are able to pass in whatever we want and it will execute that command without hesitation.
 For example:
 ```
