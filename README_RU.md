@@ -17,7 +17,8 @@ ping -6 <input>
 ```
 ping -6 :: | echo "Привет!"
 ```
-И куда же они дели те самые [60 миллиардов для блокировки вебсайтов](https://www.svoboda.org/a/roskomnadzor-potratit-pochti-60-mlrd-rubley-na-sistemy-po-blokirovke/33114493.html)...
+И куда же они дели те самые [60 миллиардов для блокировки вебсайтов](https://www.svoboda.org/a/roskomnadzor-potratit-pochti-60-mlrd-rubley-na-sistemy-po-blokirovke/33114493.html)... <br>
+Перед этим вам нужно авторизоваться в панеле и взять sessionid, без него ничего работать не будет.
 
 # Лицензия
 Вы можете найти копию лицензии MIT в этом репозитории
