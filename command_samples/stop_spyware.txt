@@ -2,14 +2,17 @@
 # Before that you should kill dnsmasq and make your own dnsmasq config to make sure that your
 # router always uses Cloudflare's DNS. Otherwise some rules might be destructive.
 # Your config should be created in tmpfs, because the root partition of the router is
-# in the read-only mode.
+# in the read-only mode. Note that the dnsmasq config requires you to have a static IPv4 address.
 #
 # ПРЕДУПРЕЖДЕНИЕ
 # Перед выполнением данных команд следует остановить инстанцию dnsmasq и сделать свой конфиг.
 # Направте все DNS реквесты на сервера Cloudflare или другого провайдера, только не забудьте
 # поменять IP DNS в этом текстовом файле. Конфиг нужно сделать в tmpfs, потому что роутер
-# запущен в read-only режиме.
+# запущен в read-only режиме. Заметьте, что конфиг dnsmasq расчитывает на то, что у вас фиксированный IPv4 адрес.
 
+bash -c "echo -e \"user=\ngroup=\ndomain-needed\nbogus-priv\nlocal=/wpad.IGD_Rostelecom/\nserver=1.1.1.1@YOUR.STATIC.IP.HERE\nserver=1.0.0.1@YOUR.STATIC.IP.HERE\nserver=2606:4700:4700::1111\nserver=2606:4700:4700::1001\" > /run/dns.txt"
+kill $(pidof dnsmasq)
+/bin/dnsmasq -C /run/dns.txt &
 ipset create blacklist hash:ip hashsize 4096
 iptables -I INPUT -m set --match-set blacklist src -j DROP
 iptables -I FORWARD -m set --match-set blacklist src -j DROP
@@ -33,5 +36,5 @@ iptables -A INPUT -p udp --dport 7547 -j DROP
 iptables -A OUTPUT -p tcp --dport 7547 -j DROP
 iptables -A OUTPUT -p udp --dport 7547 -j DROP
 iptables -A FORWARD -p tcp --dport 7547 -j DROP
-iptables -A FORWARD -P udp --dport 7547 -j DROP
+iptables -A FORWARD -p udp --dport 7547 -j DROP
 kill $(pidof cwmpClient)
