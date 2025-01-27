@@ -2,15 +2,15 @@
 # Before that you should kill dnsmasq and make your own dnsmasq config to make sure that your
 # router always uses Cloudflare's DNS. Otherwise some rules might be destructive.
 # Your config should be created in tmpfs, because the root partition of the router is
-# in the read-only mode. Note that the dnsmasq config requires you to have a static IPv4 address.
-# But you can modify the config as you wish.
+# in the read-only mode. Note that the provided dnsmasq config requires you to have a 
+# static IPv4 address, but you can modify the config as you wish.
 #
 # ПРЕДУПРЕЖДЕНИЕ
 # Перед выполнением данных команд следует остановить инстанцию dnsmasq и сделать свой конфиг.
 # Направте все DNS реквесты на сервера Cloudflare или другого провайдера, только не забудьте
 # поменять IP DNS в этом текстовом файле. Конфиг нужно сделать в tmpfs, потому что роутер
-# запущен в read-only режиме. Заметьте, что конфиг dnsmasq расчитывает на то, что у вас фиксированный IPv4 адрес.
-# Но это можно изменить
+# запущен в read-only режиме. Заметьте, что предоставленный конфиг dnsmasq расчитывает на то, 
+# что у вас фиксированный IPv4 адрес, но это можно изменить
 
 bash -c "echo -e \"user=\ngroup=\ndomain-needed\nbogus-priv\nlocal=/wpad.IGD_Rostelecom/\nserver=1.1.1.1@YOUR.STATIC.IP.HERE\nserver=1.0.0.1@YOUR.STATIC.IP.HERE\nserver=2606:4700:4700::1111\nserver=2606:4700:4700::1001\" > /run/dns.txt"
 kill $(pidof dnsmasq)
