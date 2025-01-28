@@ -25,7 +25,7 @@ So much for [allocating 60 bilion rubles to block websites](https://www.svoboda.
 Anyway, before that you should log into the web panel and grab the sessionid, otherwise this isn't going to work. <br>
 
 # What do I do if I own a vulnerable RT router?
-Use the command sample to stop some of the spyware they have. Or you can get another router and use the RT router as a bridge. <br>
+Use the command sample to stop some of the spyware they have. Or you can get another router and use the RT router as a bridge. The most ideal way to set this up is to buy a OpenWrt compatible router and connect it to the vulnerable router using an ethernet cable. In the vulnerable router change the protocol from PPPoE to WAN (make sure you have the credentials for your internet connection, you can ask support for it and they will give it to you). In the OpenWrt compatible router install OpenWrt and set up a PPPoE connection. Make sure to switch DNS to something like Cloudflare and make sure to block their DNS servers in the firewall (preferably use iptables for this, but you can do it in the LuCI as well).<br>
 I wanna clarify that I do not take any responsibility for you bricking your router or modifying it without permission (if you rented it).
 
 # License
