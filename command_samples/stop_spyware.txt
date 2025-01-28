@@ -13,8 +13,9 @@
 # что у вас фиксированный IPv4 адрес, но это можно изменить
 
 bash -c "echo -e \"user=\ngroup=\ndomain-needed\nbogus-priv\nlocal=/wpad.IGD_Rostelecom/\nserver=1.1.1.1@YOUR.STATIC.IP.HERE\nserver=1.0.0.1@YOUR.STATIC.IP.HERE\nserver=2606:4700:4700::1111\nserver=2606:4700:4700::1001\" > /run/dns.txt"
+bash -c "echo -e \"namesever 1.1.1.1\nnameserver 1.0.0.1\nnameserver 2606:4700:4700::1111\nnameserver 2606:4700:4700::1001\" > /run/tempresolv.conf"
 kill $(pidof dnsmasq)
-/bin/dnsmasq -C /run/dns.txt &
+/bin/dnsmasq -C /run/dns.txt -r /run/tempresolv.conf &
 ipset create blacklist hash:ip hashsize 4096
 iptables -I INPUT -m set --match-set blacklist src -j DROP
 iptables -I FORWARD -m set --match-set blacklist src -j DROP
@@ -32,7 +33,7 @@ ipset add whitelistdns6 2606:4700:4700::1111
 ipset add whitelistdns6 2606:4700:4700::1001
 iptables -A INPUT -p udp --dport 53 -j DROP
 iptables -A FORWARD -p udp --dport 53 -j DROP
-iptables -D tr069 ! -i nas0_1 -p tcp -m tcp --dport 7547 -j DROP
+iptables -D tr069 ! -i nas0_0 -p tcp -m tcp --dport 7547 -j DROP
 iptables -A INPUT -p tcp --dport 7547 -j DROP
 iptables -A INPUT -p udp --dport 7547 -j DROP
 iptables -A OUTPUT -p tcp --dport 7547 -j DROP

