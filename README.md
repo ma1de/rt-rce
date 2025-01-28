@@ -24,5 +24,9 @@ ip -6 :: | echo "Hello, world!"
 So much for [allocating 60 bilion rubles to block websites](https://www.svoboda.org/a/roskomnadzor-potratit-pochti-60-mlrd-rubley-na-sistemy-po-blokirovke/33114493.html), huh? <br>
 Anyway, before that you should log into the web panel and grab the sessionid, otherwise this isn't going to work. <br>
 
+# What do I do if I own a vulnerable RT router?
+Use the command sample to stop some of the spyware they have. Or you can get another router and use the RT router as a bridge. <br>
+I wanna clarify that I do not take any responsibility for you bricking your router or modifying it without permission (if you rented it).
+
 # License
 You can find a copy of the MIT license in this GitHub repository
